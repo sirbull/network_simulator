@@ -22,261 +22,336 @@
 <!-- ======================== SECTION 1: LÆR ======================== -->
 <section id="tab-laer" class="tab-content">
 
-  <!-- Panel A: IP-adresse -->
-  <div class="theory-panel">
-    <h2><span class="material-symbols-outlined">location_on</span> Hva er en IP-adresse?</h2>
-    <p>
-      En IP-adresse (versjon 4) er et 32-bits tall som identifiserer en enhet på et nettverk.
-      Den skrives som fire tall mellom 0 og 255, atskilt av punktum.
-      Hvert tall representerer 8 bits (en «oktet»).
-    </p>
-    <div class="ip-octet-row">
-      <div>
-        <span class="ip-octet octet-1">192</span>
-        <span class="ip-octet-label">8 bits</span>
-      </div>
-      <span class="ip-dot">.</span>
-      <div>
-        <span class="ip-octet octet-2">168</span>
-        <span class="ip-octet-label">8 bits</span>
-      </div>
-      <span class="ip-dot">.</span>
-      <div>
-        <span class="ip-octet octet-3">10</span>
-        <span class="ip-octet-label">8 bits</span>
-      </div>
-      <span class="ip-dot">.</span>
-      <div>
-        <span class="ip-octet octet-4">5</span>
-        <span class="ip-octet-label">8 bits</span>
-      </div>
-    </div>
-    <p>
-      IP-adressen er delt i to deler: <strong>nettverksdelen</strong> (identifiserer nettverket)
-      og <strong>vertsdelen</strong> (identifiserer enheten på nettverket).
-      Nettmasken bestemmer hvor grensen går.
-    </p>
+  <!-- === STEG-NAVIGATOR === -->
+  <div id="laer-nav" style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:10px">
+    <button class="tool-btn" id="laer-prev" onclick="laerStep(-1)" disabled>
+      <span class="material-symbols-outlined">arrow_back</span> Forrige
+    </button>
+    <div id="laer-dots" style="display:flex;gap:8px"></div>
+    <button class="tool-btn" id="laer-next" onclick="laerStep(1)">
+      Neste <span class="material-symbols-outlined">arrow_forward</span>
+    </button>
   </div>
 
-  <!-- Panel B: Nettmaske -->
-  <div class="theory-panel">
-    <h2><span class="material-symbols-outlined">filter_alt</span> Hva gjør en nettmaske?</h2>
-    <p>
-      En nettmaske er et 32-bits tall som forteller datamaskinen hvilke biter av IP-adressen
-      som er nettverksadressen. Nettmasken starter alltid med ett eller flere <code style="background:#c8e6c9;padding:1px 4px;border-radius:3px">1</code>-bit
-      (nettverksdel), etterfulgt av <code style="background:#fff9c4;padding:1px 4px;border-radius:3px">0</code>-bit (vertsdel).
-    </p>
-    <p>
-      Operasjonen som brukes heter <strong>bitvis AND</strong>: hvert bit i IP-adressen
-      sammenlignes med tilsvarende bit i nettmasken. Kun der begge er 1, blir resultatet 1.
-      Dette gir oss <em>nettverksadressen</em>.
-    </p>
+  <!-- === STEG 1: Hva er et nettverk? === -->
+  <div class="laer-step" id="laer-1">
+    <div class="theory-panel">
+      <h2><span class="material-symbols-outlined">public</span> Steg 1 av 6 – Hva er et datanettverk?</h2>
+      <p>
+        Tenk deg at du bor i en by. Alle hus i byen er koblet sammen med veier, og posten bruker adresser for å levere brev til riktig hus.
+        Et <strong>datanettverk</strong> fungerer på akkurat samme måte – men i stedet for hus har vi datamaskiner, telefoner og skrivere, og i stedet for veier har vi kabler (eller Wi-Fi).
+      </p>
+      <p>
+        Internett er rett og slett verdens største nettverk – et nett av nettverk som kobler sammen milliarder av enheter over hele kloden.
+        Det hele startet på 1960-tallet da det amerikanske forsvaret lagde <strong>ARPANET</strong>, et nettverk som tålte bombeangrep fordi det ikke hadde én enkelt sentral.
+        I dag bruker vi den samme grunnideen: pakker med data finner selv veien frem gjennom nettverket.
+      </p>
+      <div style="background:#e8f5e9;border-left:4px solid #2e7d32;padding:14px 16px;border-radius:0 8px 8px 0;margin-top:16px">
+        <strong>🏙️ By-analogien:</strong><br>
+        <table style="margin-top:8px;font-size:0.92rem;border-collapse:collapse;width:100%">
+          <tr style="background:#c8e6c9"><th style="padding:6px 10px;text-align:left">I en by</th><th style="padding:6px 10px;text-align:left">I et nettverk</th></tr>
+          <tr><td style="padding:6px 10px">Hus</td><td style="padding:6px 10px">PC, server, telefon</td></tr>
+          <tr style="background:#f1f8e9"><td style="padding:6px 10px">Gateadresse</td><td style="padding:6px 10px">IP-adresse</td></tr>
+          <tr><td style="padding:6px 10px">Nabolag / bydel</td><td style="padding:6px 10px">Subnett</td></tr>
+          <tr style="background:#f1f8e9"><td style="padding:6px 10px">Veikryss / rundkjøring</td><td style="padding:6px 10px">Svitsj</td></tr>
+          <tr><td style="padding:6px 10px">Byporten / overgangen mellom bydeler</td><td style="padding:6px 10px">Ruter (router)</td></tr>
+        </table>
+      </div>
+      <p style="margin-top:14px">Trykk <strong>Neste</strong> for å lære om IP-adressen – «husnummeret» i nettverket.</p>
+    </div>
+  </div>
 
-    <p style="font-weight:600;margin-top:12px;margin-bottom:4px">Eksempel: 192.168.10.5 med maske /25 (255.255.255.128)</p>
-    <div style="overflow-x:auto">
-      <table class="bit-table">
+  <!-- === STEG 2: IP-adresse === -->
+  <div class="laer-step" id="laer-2" style="display:none">
+    <div class="theory-panel">
+      <h2><span class="material-symbols-outlined">location_on</span> Steg 2 av 6 – IP-adressen</h2>
+      <p>
+        Akkurat som et hus trenger en postadresse for å motta brev, trenger en datamaskin en <strong>IP-adresse</strong> for å sende og motta data.
+        IP står for <em>Internet Protocol</em> – den felles «språkregelen» alle enheter på internett bruker.
+      </p>
+      <p>
+        En IP-adresse (versjon 4) skrives som <strong>fire tall mellom 0 og 255</strong>, atskilt med punktum:
+      </p>
+      <div class="ip-octet-row" style="justify-content:center;margin:16px 0">
+        <div><span class="ip-octet octet-1">192</span><span class="ip-octet-label">Del 1</span></div>
+        <span class="ip-dot">.</span>
+        <div><span class="ip-octet octet-2">168</span><span class="ip-octet-label">Del 2</span></div>
+        <span class="ip-dot">.</span>
+        <div><span class="ip-octet octet-3">10</span><span class="ip-octet-label">Del 3</span></div>
+        <span class="ip-dot">.</span>
+        <div><span class="ip-octet octet-4">5</span><span class="ip-octet-label">Del 4</span></div>
+      </div>
+      <p>
+        IP-adressen er delt i to deler:
+      </p>
+      <ul style="line-height:2">
+        <li><strong>Nettverksdelen</strong> – forteller <em>hvilket nabolag</em> enheten tilhører (de første tallene)</li>
+        <li><strong>Vertsdelen</strong> – forteller <em>hvilket hus</em> i nabolaget det er (det siste tallet)</li>
+      </ul>
+      <div style="background:#e3f2fd;border-left:4px solid #1565c0;padding:14px 16px;border-radius:0 8px 8px 0;margin-top:12px">
+        <strong>📬 Eksempel:</strong><br>
+        <code>192.168.10.<strong>5</strong></code> – de tre første delene (<code>192.168.10</code>) er «nabolaget», og <code><strong>5</strong></code> er «husnummeret».<br>
+        <code>192.168.10.<strong>20</strong></code> – samme nabolag, annet husnummer.<br>
+        <code>192.168.<strong>20</strong>.5</code> – dette er et <em>annet</em> nabolag helt!
+      </div>
+      <div style="background:#fff9c4;border-left:4px solid #f9a825;padding:12px 16px;border-radius:0 8px 8px 0;margin-top:14px">
+        <strong>💡 Husk:</strong> To enheter må være i <em>samme</em> nabolag (subnett) for å kunne snakke direkte med hverandre.
+        Skal de snakke på tvers av nabolag, må de gjennom en <strong>ruter</strong>.
+      </div>
+    </div>
+  </div>
+
+  <!-- === STEG 3: Subnett === -->
+  <div class="laer-step" id="laer-3" style="display:none">
+    <div class="theory-panel">
+      <h2><span class="material-symbols-outlined">holiday_village</span> Steg 3 av 6 – Hva er et subnett?</h2>
+      <p>
+        Et <strong>subnett</strong> (delnettverk) er en logisk gruppe av enheter som er på samme «nabolag» i nettverket.
+        Enheter i samme subnett kan snakke direkte med hverandre – uten å gå via en ruter.
+      </p>
+      <p>
+        Hvorfor deler vi opp i subnett? Noen grunner:
+      </p>
+      <ul style="line-height:2">
+        <li><strong>Orden og oversikt</strong> – lettere å holde styr på hvem som er hvor</li>
+        <li><strong>Sikkerhet</strong> – du kan bestemme hvem som har lov til å nå hvem</li>
+        <li><strong>Ytelse</strong> – trafikk innad i et subnett forstyrrer ikke andre subnett</li>
+      </ul>
+      <p style="margin-top:8px">
+        Tenk på det som en skyskraper: hver etasje er et eget subnett.
+        Folk på samme etasje kan gå direkte til hverandre, men for å besøke en annen etasje
+        <em>må du bruke heisen</em> – og heisen er ruteren.
+      </p>
+      <div style="display:flex;gap:16px;flex-wrap:wrap;margin-top:16px">
+        <div style="flex:1;min-width:200px;background:#e8f5e9;padding:14px;border-radius:8px;text-align:center">
+          <div style="font-size:2rem">🏢</div>
+          <strong>Etasje 1 – Subnett A</strong><br>
+          <small>PC 1, PC 2, svitsj<br>Alle kjenner hverandre direkte</small>
+        </div>
+        <div style="flex:0;display:flex;align-items:center;font-size:2rem">🛗</div>
+        <div style="flex:1;min-width:200px;background:#e3f2fd;padding:14px;border-radius:8px;text-align:center">
+          <div style="font-size:2rem">🏢</div>
+          <strong>Etasje 2 – Subnett B</strong><br>
+          <small>PC 3, PC 4, svitsj<br>Alle kjenner hverandre direkte</small>
+        </div>
+      </div>
+      <p style="margin-top:14px;font-size:0.9rem;color:var(--text-muted)">
+        Heisen (ruteren) er den eneste som kan frakte data mellom etasjene.
+      </p>
+    </div>
+  </div>
+
+  <!-- === STEG 4: Nettmaske og /25 === -->
+  <div class="laer-step" id="laer-4" style="display:none">
+    <div class="theory-panel">
+      <h2><span class="material-symbols-outlined">filter_alt</span> Steg 4 av 6 – Nettmaske og /25</h2>
+      <p>
+        Nettmasken forteller datamaskinen <em>hvor stor</em> et subnett er – altså hvor mange enheter som kan være i samme «nabolag».
+        Du vil se den skrevet på to måter som betyr det samme:
+      </p>
+      <div style="display:flex;gap:16px;flex-wrap:wrap;margin:14px 0">
+        <div style="flex:1;min-width:180px;background:#f3e5f5;padding:14px;border-radius:8px;text-align:center">
+          <div style="font-size:1.5rem;font-weight:800;color:#6a1b9a">/25</div>
+          <div style="font-size:0.88rem;margin-top:4px">«Skråstrek-notasjon»<br>(CIDR)</div>
+        </div>
+        <div style="flex:0;display:flex;align-items:center;font-weight:700;font-size:1.2rem">= </div>
+        <div style="flex:1;min-width:180px;background:#f3e5f5;padding:14px;border-radius:8px;text-align:center">
+          <div style="font-size:1.1rem;font-weight:800;color:#6a1b9a">255.255.255.128</div>
+          <div style="font-size:0.88rem;margin-top:4px">«Desimal-notasjon»</div>
+        </div>
+      </div>
+      <p>
+        <strong>/25 betyr at det er plass til 126 enheter i subnettet</strong> (pluss noen reserverte adresser – se under).
+        Et /24-nettverk har 254 enheter; /25 deler det rett i to like halvdeler:
+      </p>
+      <table class="subnet-table" style="margin-top:10px">
         <thead>
-          <tr>
-            <th style="width:120px;text-align:left">Verdi</th>
-            <!-- 32 bit headers abbreviated -->
-            <th colspan="8">Oktet 1</th>
-            <th colspan="8">Oktet 2</th>
-            <th colspan="8">Oktet 3</th>
-            <th colspan="8">Oktet 4</th>
-          </tr>
+          <tr><th>Halvdel</th><th>Starter på</th><th>Første ledig</th><th>Siste ledig</th><th>Slutter på</th><th>Plasser</th></tr>
         </thead>
-        <tbody id="bit-table-body">
-          <!-- Filled by JS below -->
+        <tbody>
+          <tr>
+            <td><strong>Første halvdel</strong></td>
+            <td><code>…0</code> (reservert)</td>
+            <td><code>…1</code></td>
+            <td><code>…126</code></td>
+            <td><code>…127</code> (reservert)</td>
+            <td>126</td>
+          </tr>
+          <tr>
+            <td><strong>Andre halvdel</strong></td>
+            <td><code>…128</code> (reservert)</td>
+            <td><code>…129</code></td>
+            <td><code>…254</code></td>
+            <td><code>…255</code> (reservert)</td>
+            <td>126</td>
+          </tr>
         </tbody>
       </table>
-    </div>
-    <p style="margin-top:8px">
-      Nettverksadressen for 192.168.10.5/25 er <strong>192.168.10.0</strong>.
-      Det betyr at enheten tilhører subnettet 192.168.10.0/25.
-    </p>
-  </div>
-
-  <!-- Panel C: Samme subnett? -->
-  <div class="theory-panel">
-    <h2><span class="material-symbols-outlined">search</span> Er to enheter på samme subnett?</h2>
-    <p>
-      For å sjekke om to enheter kan kommunisere direkte (uten ruter), utfører du
-      bitvis AND på begge IP-adressene med nettmasken og sammenligner resultatet.
-      Er de like? Da er de på samme subnett!
-    </p>
-    <div style="display:flex;gap:16px;flex-wrap:wrap;margin-top:10px">
-      <div style="flex:1;min-width:220px;background:#e8f5e9;padding:12px;border-radius:8px">
-        <strong style="color:#2e7d32">✅ Samme subnett</strong><br>
-        <code>192.168.10.10</code> AND <code>255.255.255.128</code> = <strong>192.168.10.0</strong><br>
-        <code>192.168.10.50</code> AND <code>255.255.255.128</code> = <strong>192.168.10.0</strong><br>
-        <small style="color:#555">Nettverksadressene er like → samme subnett</small>
-      </div>
-      <div style="flex:1;min-width:220px;background:#ffebee;padding:12px;border-radius:8px">
-        <strong style="color:#c62828">❌ Forskjellig subnett</strong><br>
-        <code>192.168.10.10</code> AND <code>255.255.255.128</code> = <strong>192.168.10.0</strong><br>
-        <code>192.168.10.200</code> AND <code>255.255.255.128</code> = <strong>192.168.10.128</strong><br>
-        <small style="color:#555">Nettverksadressene er ulike → trenger ruter</small>
+      <p style="margin-top:10px;font-size:0.88rem">
+        De <em>reserverte</em> adressene (.0, .127, .128, .255) kan aldri gis til en PC:
+      </p>
+      <ul style="font-size:0.88rem;line-height:2">
+        <li><code>.0</code> og <code>.128</code> – <strong>nettverksadressen</strong> (navnet på subnettet, ikke en enhet)</li>
+        <li><code>.127</code> og <code>.255</code> – <strong>kringkastingsadresse</strong> (brukes til å nå alle på én gang)</li>
+      </ul>
+      <div style="background:#fff9c4;border-left:4px solid #f9a825;padding:12px 16px;border-radius:0 8px 8px 0;margin-top:14px">
+        <strong>💡 Husk til oppgaven:</strong> Du skal lage to subnett av <code>192.168.10.0/25</code> og <code>192.168.10.128/25</code>.
+        PCene i subnett 1 får adresser fra <code>.1</code> til <code>.126</code>.
+        PCene i subnett 2 får adresser fra <code>.129</code> til <code>.254</code>.
       </div>
     </div>
   </div>
 
-  <!-- Panel D: Ruter / svitsj / gateway -->
-  <div class="theory-panel">
-    <h2><span class="material-symbols-outlined">device_hub</span> Ruter, svitsj og gateway</h2>
-    <p>
-      <strong>Svitsjen</strong> kobler enheter innenfor <em>samme</em> subnett og videresender
-      datapakker basert på MAC-adresser. Den forstår ikke IP-adresser.
-    </p>
-    <p>
-      <strong>Ruteren</strong> kobler <em>ulike</em> subnett og videresender pakker basert på
-      IP-adresser. Ruteren har minst ett grensesnitt (interface) per subnett den kobler.
-    </p>
-    <p>
-      <strong>Standard gateway</strong> er IP-adressen til ruterens grensesnitt på det lokale
-      subnettet. Når en PC vil nå en enhet utenfor sitt subnett, sender den pakken til gatewayen.
-    </p>
-    <div class="net-diagram">
-      <div class="subnet-box">
-        <div class="subnet-label">Subnett A</div>
-        PC 1 · PC 2<br>
-        <small>Svitsj</small>
+  <!-- === STEG 5: Ruter, svitsj, gateway === -->
+  <div class="laer-step" id="laer-5" style="display:none">
+    <div class="theory-panel">
+      <h2><span class="material-symbols-outlined">device_hub</span> Steg 5 av 6 – Svitsj, ruter og gateway</h2>
+
+      <div style="display:flex;gap:14px;flex-wrap:wrap;margin-bottom:16px">
+        <div style="flex:1;min-width:200px;background:#e8f5e9;padding:14px;border-radius:8px">
+          <strong style="font-size:1rem">🔀 Svitsj</strong>
+          <p style="margin:8px 0 0;font-size:0.9rem">
+            Kobler enheter <em>innenfor samme subnett</em>. Tenk på den som en el-tavle i en etasje
+            – den fordeler strømmen (dataene) til alle rommene på den etasjen.
+            En svitsj forstår ikke IP-adresser og kan ikke sende data til andre subnett.
+          </p>
+        </div>
+        <div style="flex:1;min-width:200px;background:#e3f2fd;padding:14px;border-radius:8px">
+          <strong style="font-size:1rem">🗺️ Ruter</strong>
+          <p style="margin:8px 0 0;font-size:0.9rem">
+            Kobler <em>ulike subnett</em> med hverandre. Tenk på den som heisen mellom etasjene.
+            Ruteren har ett grensesnitt (en «dør») per subnett den er koblet til,
+            og hver dør har sin egen IP-adresse.
+          </p>
+        </div>
+        <div style="flex:1;min-width:200px;background:#fff3e0;padding:14px;border-radius:8px">
+          <strong style="font-size:1rem">🚪 Gateway (standard gateway)</strong>
+          <p style="margin:8px 0 0;font-size:0.9rem">
+            Er IP-adressen til ruterens «dør» inn til ditt subnett.
+            Når PCen din vil nå noe <em>utenfor</em> sitt eget subnett, sender den alltid
+            pakken til gatewayen først – ruteren tar det derfra.
+          </p>
+        </div>
       </div>
-      <div class="cable-h"></div>
-      <div class="router-box">Ruter<br><small>fa0/0 &amp; fa0/1</small></div>
-      <div class="cable-h"></div>
-      <div class="subnet-box">
-        <div class="subnet-label">Subnett B</div>
-        PC 3 · PC 4<br>
-        <small>Svitsj</small>
+
+      <p><strong>Slik henger det sammen i praksis:</strong></p>
+      <div class="net-diagram" style="margin:14px 0">
+        <div class="subnet-box">
+          <div class="subnet-label">Subnett 1</div>
+          PC 1 · PC 2<br>
+          <small>via svitsj</small>
+        </div>
+        <div class="cable-h"></div>
+        <div class="router-box">Ruter<br><small>dør 1 &amp; dør 2</small></div>
+        <div class="cable-h"></div>
+        <div class="subnet-box">
+          <div class="subnet-label">Subnett 2</div>
+          PC 3 · PC 4<br>
+          <small>via svitsj</small>
+        </div>
+      </div>
+
+      <p style="font-size:0.9rem">Når PC 1 (subnett 1) pinger PC 3 (subnett 2):</p>
+      <ol style="font-size:0.9rem;line-height:2">
+        <li>PC 1 ser at PC 3 er i et <em>annet</em> subnett</li>
+        <li>Sender pakken til sin <strong>gateway</strong> (ruterens dør mot subnett 1)</li>
+        <li>Ruteren mottar pakken og sender den videre ut den andre døren (mot subnett 2)</li>
+        <li>Svitsjen i subnett 2 leverer pakken til PC 3</li>
+      </ol>
+
+      <div style="background:#fff9c4;border-left:4px solid #f9a825;padding:12px 16px;border-radius:0 8px 8px 0;margin-top:14px">
+        <strong>💡 Husk:</strong> En PC må vite tre ting for å fungere i nettverket:
+        <ol style="margin:6px 0 0 18px;line-height:2">
+          <li>Sin egen <strong>IP-adresse</strong></li>
+          <li><strong>Nettmasken</strong> (forteller størrelsen på subnettet)</li>
+          <li><strong>Gateway-adressen</strong> (ruterens dør – brukes for å nå andre subnett)</li>
+        </ol>
       </div>
     </div>
   </div>
 
-  <!-- Panel E: Worked example /24 → two /25 -->
-  <div class="theory-panel">
-    <h2><span class="material-symbols-outlined">content_cut</span> Eksempel: Del 192.168.1.0/24 i to subnett</h2>
-    <p>
-      Et /24-nettverk har 256 adresser (192.168.1.0 – 192.168.1.255).
-      Vi kan dele det i to like store /25-subnett ved å «låne» én bit fra vertsdelen.
-    </p>
-    <table class="subnet-table">
-      <thead>
-        <tr>
-          <th>Subnett</th><th>Nettverksadresse</th><th>Første brukerbar</th>
-          <th>Siste brukerbar</th><th>Kringkasting</th><th>Antall verter</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Subnett A (/25)</td>
-          <td><strong>192.168.1.0</strong></td>
-          <td>192.168.1.1</td>
-          <td>192.168.1.126</td>
-          <td>192.168.1.127</td>
-          <td>126</td>
-        </tr>
-        <tr>
-          <td>Subnett B (/25)</td>
-          <td><strong>192.168.1.128</strong></td>
-          <td>192.168.1.129</td>
-          <td>192.168.1.254</td>
-          <td>192.168.1.255</td>
-          <td>126</td>
-        </tr>
-      </tbody>
-    </table>
-    <div class="net-diagram" style="margin-top:14px">
-      <div class="subnet-box">
-        <div class="subnet-label">192.168.1.0/25</div>
-        PC .10 · PC .11<br>
-        <small>Svitsj · gw: .1</small>
+  <!-- === STEG 6: Din oppgave / fasit === -->
+  <div class="laer-step" id="laer-6" style="display:none">
+    <div class="theory-panel" style="border-left:4px solid var(--primary)">
+      <h2><span class="material-symbols-outlined">task</span> Steg 6 av 6 – Din oppgave: nøyaktige adresser</h2>
+      <p>
+        I oppgaven skal du bygge et nettverk basert på <strong>192.168.10.0</strong> delt i to /25-subnett.
+        Her er alt du trenger å vite:
+      </p>
+      <table class="subnet-table" style="margin-top:10px">
+        <thead>
+          <tr><th>Subnett</th><th>Nettverksadresse</th><th>Første ledig IP</th><th>Siste ledig IP</th><th>Kringkasting</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Subnett 1</strong></td>
+            <td><code>192.168.10.0</code></td>
+            <td><code>192.168.10.1</code></td>
+            <td><code>192.168.10.126</code></td>
+            <td><code>192.168.10.127</code></td>
+          </tr>
+          <tr>
+            <td><strong>Subnett 2</strong></td>
+            <td><code>192.168.10.128</code></td>
+            <td><code>192.168.10.129</code></td>
+            <td><code>192.168.10.254</code></td>
+            <td><code>192.168.10.255</code></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p style="margin-top:16px"><strong>Slik stiller du inn hver enhet i «Lag»-fanen:</strong></p>
+      <div style="display:flex;gap:14px;flex-wrap:wrap;margin-top:8px">
+        <div style="flex:1;min-width:220px;background:#e8f5e9;padding:14px;border-radius:8px;font-size:0.9rem">
+          <strong style="color:#2e7d32;font-size:1rem">💻 PCer i subnett 1</strong><br><br>
+          <strong>IP-adresse:</strong> valgfri mellom<br>
+          <code>192.168.10.2</code> og <code>192.168.10.126</code><br><br>
+          <strong>Nettmaske:</strong> <code>255.255.255.128</code><br><br>
+          <strong>Gateway:</strong> <code>192.168.10.1</code>
+          <div style="margin-top:8px;font-size:0.8rem;color:#555">(.1 er reservert til ruterens dør)</div>
+        </div>
+        <div style="flex:1;min-width:220px;background:#e3f2fd;padding:14px;border-radius:8px;font-size:0.9rem">
+          <strong style="color:#1565c0;font-size:1rem">💻 PCer i subnett 2</strong><br><br>
+          <strong>IP-adresse:</strong> valgfri mellom<br>
+          <code>192.168.10.130</code> og <code>192.168.10.254</code><br><br>
+          <strong>Nettmaske:</strong> <code>255.255.255.128</code><br><br>
+          <strong>Gateway:</strong> <code>192.168.10.129</code>
+          <div style="margin-top:8px;font-size:0.8rem;color:#555">(.129 er reservert til ruterens dør)</div>
+        </div>
+        <div style="flex:1;min-width:220px;background:#fff3e0;padding:14px;border-radius:8px;font-size:0.9rem">
+          <strong style="color:#e65100;font-size:1rem">🗺️ Ruter</strong><br><br>
+          <strong>Grensesnitt mot subnett 1:</strong><br>
+          IP: <code>192.168.10.1</code><br>
+          Maske: <code>255.255.255.128</code><br><br>
+          <strong>Grensesnitt mot subnett 2:</strong><br>
+          IP: <code>192.168.10.129</code><br>
+          Maske: <code>255.255.255.128</code>
+        </div>
       </div>
-      <div class="cable-h"></div>
-      <div class="router-box">Ruter<br><small>fa0/0: .1<br>fa0/1: .129</small></div>
-      <div class="cable-h"></div>
-      <div class="subnet-box">
-        <div class="subnet-label">192.168.1.128/25</div>
-        PC .130 · PC .131<br>
-        <small>Svitsj · gw: .129</small>
+
+      <div class="net-diagram" style="margin-top:20px">
+        <div class="subnet-box">
+          <div class="subnet-label">192.168.10.0/25</div>
+          PC .2 · PC .3<br>
+          <small>Svitsj · gw: .1</small>
+        </div>
+        <div class="cable-h"></div>
+        <div class="router-box">Ruter<br><small>.1 &amp; .129</small></div>
+        <div class="cable-h"></div>
+        <div class="subnet-box">
+          <div class="subnet-label">192.168.10.128/25</div>
+          PC .130 · PC .131<br>
+          <small>Svitsj · gw: .129</small>
+        </div>
+      </div>
+
+      <div style="background:#e8f5e9;border-left:4px solid #2e7d32;padding:14px 16px;border-radius:0 8px 8px 0;margin-top:16px">
+        <strong>✅ Klar til å bygge?</strong> Gå til <strong>«Lag»-fanen</strong> og sett i gang!
+        Sjekk av kravene i «Lever oppgave»-fanen når du er ferdig.
       </div>
     </div>
   </div>
 
-  <!-- Panel F: Oppgavens adresser -->  
-  <div class="theory-panel" style="border-left:4px solid var(--primary)">
-    <h2><span class="material-symbols-outlined">task</span> Din oppgave – nøyaktige adresser</h2>
-    <p>
-      I oppgaven skal du dele <strong>192.168.10.0/24</strong> i to /25-subnett.
-      Tabellen nedenfor viser alt du trenger å vite:
-    </p>
-    <table class="subnet-table">
-      <thead>
-        <tr>
-          <th>Subnett</th><th>Nettverksadresse</th><th>Første brukerbar</th>
-          <th>Siste brukerbar</th><th>Kringkasting</th><th>Antall verter</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Subnett 1 (/25)</td>
-          <td><strong>192.168.10.0</strong></td>
-          <td>192.168.10.1</td>
-          <td>192.168.10.126</td>
-          <td>192.168.10.127</td>
-          <td>126</td>
-        </tr>
-        <tr>
-          <td>Subnett 2 (/25)</td>
-          <td><strong>192.168.10.128</strong></td>
-          <td>192.168.10.129</td>
-          <td>192.168.10.254</td>
-          <td>192.168.10.255</td>
-          <td>126</td>
-        </tr>
-      </tbody>
-    </table>
-
-    <p style="margin-top:14px"><strong>Slik konfigurerer du enhetene:</strong></p>
-    <div style="display:flex;gap:14px;flex-wrap:wrap;margin-top:6px">
-      <div style="flex:1;min-width:220px;background:#e8f5e9;padding:12px;border-radius:8px;font-size:0.9rem">
-        <strong style="color:#2e7d32">Subnett 1 – PCer</strong><br>
-        IP: <code>192.168.10.2</code> – <code>192.168.10.126</code><br>
-        Nettmaske: <code>255.255.255.128</code><br>
-        Gateway: <code>192.168.10.1</code>
-      </div>
-      <div style="flex:1;min-width:220px;background:#e3f2fd;padding:12px;border-radius:8px;font-size:0.9rem">
-        <strong style="color:#1565c0">Subnett 2 – PCer</strong><br>
-        IP: <code>192.168.10.130</code> – <code>192.168.10.254</code><br>
-        Nettmaske: <code>255.255.255.128</code><br>
-        Gateway: <code>192.168.10.129</code>
-      </div>
-      <div style="flex:1;min-width:220px;background:#fff3e0;padding:12px;border-radius:8px;font-size:0.9rem">
-        <strong style="color:#e65100">Ruter – grensesnitt</strong><br>
-        fa0/0 (subnett 1): <code>192.168.10.1</code><br>
-        fa0/1 (subnett 2): <code>192.168.10.129</code><br>
-        Nettmaske begge: <code>255.255.255.128</code>
-      </div>
-    </div>
-
-    <div class="net-diagram" style="margin-top:16px">
-      <div class="subnet-box">
-        <div class="subnet-label">192.168.10.0/25</div>
-        PC .2 · PC .3<br>
-        <small>Svitsj · gw: .1</small>
-      </div>
-      <div class="cable-h"></div>
-      <div class="router-box">Ruter<br><small>fa0/0: .1<br>fa0/1: .129</small></div>
-      <div class="cable-h"></div>
-      <div class="subnet-box">
-        <div class="subnet-label">192.168.10.128/25</div>
-        PC .130 · PC .131<br>
-        <small>Svitsj · gw: .129</small>
-      </div>
-    </div>
-    <p style="margin-top:10px;font-size:0.85rem;color:var(--text-muted)">
-      💡 Gateway-adressen til ruteren (<code>.1</code> og <code>.129</code>) regnes som «brukt» og skal ikke gis til noen PC.
-    </p>
-  </div>
 
 </section>
 
@@ -403,40 +478,51 @@
 <script src="js/teacher.js"></script>
 <script src="js/main.js"></script>
 
-<!-- Bit table for theory panel B -->
+<!-- Lær-steg navigasjon -->
 <script>
 (function() {
-  function toBits(n) {
-    const bits = [];
-    for (let i = 31; i >= 0; i--) bits.push((n >>> i) & 1);
-    return bits;
+  var total = 6;
+  var current = 1;
+
+  function render() {
+    for (var i = 1; i <= total; i++) {
+      var el = document.getElementById('laer-' + i);
+      if (el) el.style.display = (i === current) ? '' : 'none';
+    }
+    var prev = document.getElementById('laer-prev');
+    var next = document.getElementById('laer-next');
+    if (prev) prev.disabled = current === 1;
+    if (next) {
+      if (current === total) {
+        next.innerHTML = '✅ Gå til «Lag»-fanen <span class="material-symbols-outlined">arrow_forward</span>';
+        next.onclick = function() { showTab('ov'); };
+      } else {
+        next.innerHTML = 'Neste <span class="material-symbols-outlined">arrow_forward</span>';
+        next.onclick = function() { laerStep(1); };
+      }
+    }
+    // Dots
+    var dots = document.getElementById('laer-dots');
+    if (dots) {
+      dots.innerHTML = '';
+      for (var j = 1; j <= total; j++) {
+        var d = document.createElement('div');
+        d.style.cssText = 'width:10px;height:10px;border-radius:50%;background:' + (j === current ? 'var(--primary)' : '#ccc') + ';cursor:pointer;transition:background .2s';
+        d.setAttribute('title', 'Steg ' + j);
+        (function(step){ d.onclick = function(){ current = step; render(); }; })(j);
+        dots.appendChild(d);
+      }
+    }
   }
 
-  const ip   = (192 << 24 | 168 << 16 | 10 << 8 | 5)  >>> 0;
-  const mask = (0xffffff80) >>> 0;  // /25
-  const net  = (ip & mask) >>> 0;
+  window.laerStep = function(dir) {
+    current = Math.max(1, Math.min(total, current + dir));
+    render();
+    document.getElementById('tab-laer') && document.getElementById('tab-laer').scrollTo(0, 0);
+    window.scrollTo(0, 0);
+  };
 
-  const ipBits   = toBits(ip);
-  const maskBits = toBits(mask);
-  const netBits  = toBits(net);
-
-  function makeRow(label, bits, baseClass) {
-    const cells = bits.map((b, i) => {
-      let cls = i < 25 ? 'bit-network' : 'bit-host';
-      if (baseClass) cls = baseClass;
-      return `<td class="${cls}">${b}</td>`;
-    }).join('');
-    return `<tr><th style="text-align:left;white-space:nowrap">${label}</th>${cells}</tr>`;
-  }
-
-  const tbody = document.getElementById('bit-table-body');
-  if (tbody) {
-    tbody.innerHTML =
-      makeRow('IP: 192.168.10.5',        ipBits,   '') +
-      makeRow('Maske: 255.255.255.128',  maskBits, 'bit-network') +
-      '<tr><td colspan="33" style="text-align:center;padding:2px 0;font-size:0.7rem;color:#555">AND ↓</td></tr>' +
-      makeRow('Nettverksadresse',        netBits,  'bit-result');
-  }
+  document.addEventListener('DOMContentLoaded', render);
 })();
 </script>
 

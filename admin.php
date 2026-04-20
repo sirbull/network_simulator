@@ -5,7 +5,7 @@
  *
  * SETT DITT EGET PASSORD I LINJEN UNDER:
  */
-define('ADMIN_PASSWORD', 'Vinterferie1987');   // <-- endre dette!
+define('ADMIN_PASSWORD', 'HortenMediaVGS2000');   // <-- endre dette!
 
 session_start();
 
@@ -23,10 +23,10 @@ if (isset($_GET['logout'])) {
 
 // ---- Logg inn ----
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['password'])) {
-    if ($_POST['password'] === ADMIN_PASSWORD) {
+    if ($_POST['username'] === ADMIN_USERNAME && $_POST['password'] === ADMIN_PASSWORD) {
         $_SESSION['admin'] = true;
     } else {
-        $loginError = 'Feil passord.';
+        $loginError = 'Feil brukernavn eller passord.';
     }
 }
 
@@ -116,7 +116,7 @@ function loginPage($error) { ?>
     body { font-family: system-ui, sans-serif; background: #f0f4f8; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; }
     .box { background: #fff; border-radius: 12px; padding: 40px; box-shadow: 0 4px 24px #0002; width: 320px; }
     h1 { font-size: 1.3rem; margin: 0 0 24px; color: #1a237e; }
-    input[type=password] { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-size: 1rem; box-sizing: border-box; margin-bottom: 12px; }
+    input[type=email], input[type=text], input[type=password] { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-size: 1rem; box-sizing: border-box; margin-bottom: 12px; }
     button { width: 100%; padding: 11px; background: #1a237e; color: #fff; border: none; border-radius: 6px; font-size: 1rem; cursor: pointer; }
     button:hover { background: #283593; }
     .err { color: #c62828; font-size: 0.88rem; margin-bottom: 8px; }
@@ -127,7 +127,8 @@ function loginPage($error) { ?>
     <h1>🔒 Lærerpanel</h1>
     <?php if ($error) echo '<p class="err">' . htmlspecialchars($error) . '</p>'; ?>
     <form method="post">
-      <input type="password" name="password" placeholder="Passord" autofocus>
+      <input type="email" name="username" placeholder="Brukernavn (e-post)" autofocus autocomplete="username">
+      <input type="password" name="password" placeholder="Passord" autocomplete="current-password">
       <button type="submit">Logg inn</button>
     </form>
   </div>
