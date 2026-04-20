@@ -397,6 +397,14 @@
     <strong>Tips:</strong> Klikk en enhet for å konfigurere den. Bruk «Tegn kabel» og klikk to enheter for å koble dem. Klikk en kabel for å slette den. Trykk Escape for å avbryte.
   </div>
 
+  <!-- HINT-SEKSJON -->
+  <div style="margin-top:16px">
+    <button id="hint-btn" class="tool-btn" onclick="showHint()" style="background:#fff8e1;border:1px solid #f9a825;color:#5d4037;font-size:0.92rem;padding:10px 18px">
+      <span class="material-symbols-outlined">lightbulb</span> Trenger du et hint?
+    </button>
+    <div id="hint-box" style="display:none;margin-top:12px;padding:14px 16px;background:#fff8e1;border-left:4px solid #f9a825;border-radius:0 8px 8px 0;font-size:0.92rem;line-height:1.7;max-width:600px"></div>
+  </div>
+
 </section>
 
 <!-- ======================== SECTION 3: LEVER OPPGAVE ======================== -->
@@ -410,10 +418,10 @@
       <ol style="margin:8px 0 0 18px;line-height:1.9">
         <li>Gå til <strong>«Lag»-fanen</strong> og bygg nettverket ditt der.</li>
         <li>Klikk <strong>«Ping alle»</strong> for å verifisere at alle PCer kan nå hverandre.</li>
-        <li>Kom tilbake til denne fanen («Lever oppgave»).</li>
+        <li>Kom tilbake til denne fanen («Lever oppgave»). Alle kravene må vise grønt hakemerke.</li>
         <li>Skriv inn navnet ditt og klikk <strong>«Lever besvarelse»</strong>.<br>
             <small style="color:var(--text-muted)">Knappen aktiveres automatisk når alle krav er oppfylt.</small></li>
-        <li>Du får lastet ned en <code>.json</code>-fil – send denne til læreren din.</li>
+        <li>Besvarelsen sendes direkte til læreren – du trenger ikke gjøre noe mer! ✅</li>
       </ol>
     </div>
 
@@ -475,6 +483,7 @@
 <script src="js/config.js"></script>
 <script src="js/ping.js"></script>
 <script src="js/validation.js"></script>
+<script src="js/hints.js"></script>
 <script src="js/teacher.js"></script>
 <script src="js/main.js"></script>
 
