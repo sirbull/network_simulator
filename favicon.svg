@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- Background circle -->
+  <rect width="512" height="512" rx="100" fill="#1D9E75"/>
+
+  <!-- LAN / network icon (material design "lan" path, scaled to fit) -->
+  <!-- Center hub circle -->
+  <circle cx="256" cy="256" r="42" fill="none" stroke="white" stroke-width="30"/>
+
+  <!-- Top node -->
+  <circle cx="256" cy="96" r="36" fill="white"/>
+  <line x1="256" y1="132" x2="256" y2="214" stroke="white" stroke-width="26" stroke-linecap="round"/>
+
+  <!-- Bottom-left node -->
+  <circle cx="116" cy="390" r="36" fill="white"/>
+  <line x1="140" y1="367" x2="218" y2="293" stroke="white" stroke-width="26" stroke-linecap="round"/>
+
+  <!-- Bottom-right node -->
+  <circle cx="396" cy="390" r="36" fill="white"/>
+  <line x1="372" y1="367" x2="294" y2="293" stroke="white" stroke-width="26" stroke-linecap="round"/>
+</svg>
