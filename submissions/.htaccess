@@ -1,0 +1,6 @@
+# Blokkerer direkte nettleseradgang til submissions-mappen
+Options -Indexes
+<FilesMatch "\.json$">
+  Order allow,deny
+  Deny from all
+</FilesMatch>

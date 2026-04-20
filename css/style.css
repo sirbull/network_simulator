@@ -1,0 +1,662 @@
+/* === CSS CUSTOM PROPERTIES === */
+:root {
+  --primary:       #1D9E75;
+  --primary-dark:  #157a5a;
+  --primary-light: #e8f5f0;
+  --danger:        #e53935;
+  --success:       #43a047;
+  --warning:       #fb8c00;
+  --text:          #212121;
+  --text-muted:    #666;
+  --border:        #ddd;
+  --bg:            #f5f5f5;
+  --white:         #ffffff;
+  --radius:        8px;
+  --shadow:        0 2px 8px rgba(0,0,0,0.12);
+}
+
+/* === MATERIAL SYMBOLS === */
+.material-symbols-outlined {
+  font-family: 'Material Symbols Outlined';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 18px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  vertical-align: middle;
+  -webkit-font-smoothing: antialiased;
+}
+/* Slightly larger icons in headings */
+.theory-panel h2 .material-symbols-outlined { font-size: 20px; }
+/* Toolbar icons */
+.tool-btn .material-symbols-outlined { font-size: 18px; }
+/* Tab icons */
+.tab-btn .material-symbols-outlined { font-size: 17px; }
+/* Header icon */
+#app-header h1 .material-symbols-outlined { font-size: 22px; }
+/* Config panel heading */
+#config-panel h3 .material-symbols-outlined { font-size: 18px; }
+/* Assignment heading */
+.assignment-intro h2 .material-symbols-outlined { font-size: 18px; }
+/* Teacher heading */
+#teacher-page h1 .material-symbols-outlined { font-size: 26px; }
+/* Submit button */
+#submit-btn .material-symbols-outlined { font-size: 18px; }
+
+/* === RESET === */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+  color: var(--text);
+  background: var(--bg);
+  min-height: 100vh;
+}
+
+/* === APP HEADER === */
+#app-header {
+  background: var(--primary);
+  color: white;
+  padding: 12px 16px 0;
+}
+#app-header h1 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+  opacity: 0.95;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* === TAB BAR === */
+#tab-bar {
+  display: flex;
+  gap: 4px;
+}
+.tab-btn {
+  flex: 1;
+  padding: 10px 8px;
+  border: none;
+  border-radius: 6px 6px 0 0;
+  background: rgba(255,255,255,0.15);
+  color: white;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.15s;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+.tab-btn:hover { background: rgba(255,255,255,0.25); }
+.tab-btn.active {
+  background: var(--white);
+  color: var(--primary-dark);
+  font-weight: 600;
+}
+
+/* === TAB CONTENT === */
+.tab-content { display: none; padding: 16px; }
+.tab-content.active { display: block; }
+
+/* === THEORY SECTION (LÆR) === */
+.theory-panel {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-bottom: 16px;
+  box-shadow: var(--shadow);
+}
+.theory-panel h2 {
+  color: var(--primary-dark);
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.theory-panel p { line-height: 1.6; color: var(--text); margin-bottom: 10px; }
+.theory-panel p:last-child { margin-bottom: 0; }
+
+/* Bit diagram table */
+.bit-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.72rem;
+  font-family: monospace;
+  margin: 10px 0;
+  overflow-x: auto;
+  display: block;
+}
+.bit-table th, .bit-table td {
+  border: 1px solid var(--border);
+  padding: 3px 5px;
+  text-align: center;
+  min-width: 22px;
+}
+.bit-table th { background: var(--bg); font-weight: 600; }
+.bit-network { background: #c8e6c9; }
+.bit-host    { background: #fff9c4; }
+.bit-result  { background: var(--primary-light); font-weight: 600; }
+
+/* Subnet example table */
+.subnet-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 12px 0;
+  font-size: 0.88rem;
+}
+.subnet-table th, .subnet-table td {
+  border: 1px solid var(--border);
+  padding: 7px 10px;
+  text-align: left;
+}
+.subnet-table th { background: var(--primary-light); color: var(--primary-dark); font-weight: 600; }
+.subnet-table tr:nth-child(even) { background: #fafafa; }
+
+/* Network diagram (CSS-drawn) */
+.net-diagram {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 16px;
+  background: var(--bg);
+  border-radius: var(--radius);
+  flex-wrap: wrap;
+  margin: 12px 0;
+}
+.net-diagram .subnet-box {
+  border: 2px solid var(--primary);
+  border-radius: var(--radius);
+  padding: 10px 14px;
+  background: var(--primary-light);
+  text-align: center;
+  font-size: 0.82rem;
+}
+.net-diagram .subnet-box .subnet-label {
+  font-weight: 700;
+  color: var(--primary-dark);
+  margin-bottom: 4px;
+}
+.net-diagram .router-box {
+  border: 2px solid #555;
+  border-radius: 50%;
+  width: 96px; height: 96px;
+  display: flex; align-items: center; justify-content: center;
+  background: #fff;
+  font-size: 0.7rem;
+  text-align: center;
+  font-weight: 600;
+  flex-shrink: 0;
+  line-height: 1.4;
+}
+.net-diagram .cable-h {
+  height: 2px; width: 30px; background: #555;
+}
+
+/* IP address octet visual */
+.ip-octet-row {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  font-family: monospace;
+  font-size: 1rem;
+  margin: 12px 0;
+  flex-wrap: wrap;
+}
+.ip-octet {
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+.ip-dot { font-size: 1.3rem; font-weight: 700; color: #555; }
+.ip-octet-label { font-size: 0.72rem; color: var(--text-muted); display: block; text-align: center; margin-top: 2px; }
+.octet-1 { background: #e3f2fd; }
+.octet-2 { background: #f3e5f5; }
+.octet-3 { background: #fff9c4; }
+.octet-4 { background: #c8e6c9; }
+
+/* === SIMULATOR SECTION (ØV) === */
+#toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 10px;
+  background: var(--white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  margin-bottom: 10px;
+  align-items: center;
+}
+#toolbar .toolbar-sep {
+  width: 1px;
+  height: 28px;
+  background: var(--border);
+  margin: 0 2px;
+}
+.tool-btn {
+  padding: 6px 12px;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  background: var(--white);
+  cursor: pointer;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: background 0.15s, border-color 0.15s;
+  white-space: nowrap;
+}
+.tool-btn:hover { background: var(--primary-light); border-color: var(--primary); }
+.tool-btn.active { background: var(--primary); color: white; border-color: var(--primary-dark); }
+.tool-btn.danger:hover { background: #ffebee; border-color: var(--danger); color: var(--danger); }
+.tool-btn.ping-btn { background: var(--primary-light); border-color: var(--primary); color: var(--primary-dark); font-weight: 600; }
+.tool-btn.ping-btn:hover { background: var(--primary); color: white; }
+
+/* Canvas wrapper */
+#canvas-wrapper {
+  position: relative;
+  width: 100%;
+  height: 500px;
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  background: #fafffe;
+  overflow: hidden;
+  cursor: default;
+  box-shadow: var(--shadow);
+}
+#canvas-wrapper.cable-mode { cursor: crosshair; }
+#canvas {
+  position: absolute;
+  inset: 0;
+}
+#cable-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+.cable-line {
+  stroke: #7b8794;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  pointer-events: stroke;
+  cursor: pointer;
+}
+.cable-line:hover { stroke: var(--danger); stroke-width: 3.5; }
+
+/* Device divs */
+.device {
+  position: absolute;
+  width: 72px;
+  text-align: center;
+  cursor: grab;
+  user-select: none;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  transition: filter 0.1s;
+}
+.device:active { cursor: grabbing; }
+.device.selected .device-icon { filter: drop-shadow(0 0 4px var(--primary)); }
+.device.cable-source .device-icon { filter: drop-shadow(0 0 6px #1D9E75) drop-shadow(0 0 12px #1D9E75); }
+.device.cable-mode-hover .device-icon { filter: drop-shadow(0 0 4px #fb8c00); }
+.device-icon { display: block; margin: 0 auto; }
+.device-label {
+  font-size: 11px;
+  display: block;
+  margin-top: 3px;
+  line-height: 1.2;
+  color: var(--text);
+  word-break: break-word;
+}
+.device-ip-label {
+  font-size: 10px;
+  color: var(--text-muted);
+  font-family: monospace;
+}
+.device.has-error .device-icon { filter: drop-shadow(0 0 4px var(--danger)); }
+
+/* Config panel */
+#config-panel {
+  background: var(--white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 16px;
+  margin-top: 10px;
+  display: none;
+}
+#config-panel h3 {
+  color: var(--primary-dark);
+  margin-bottom: 12px;
+  font-size: 1rem;
+}
+.config-row {
+  margin-bottom: 10px;
+}
+.config-row label {
+  display: block;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin-bottom: 3px;
+  font-weight: 600;
+}
+.config-row input {
+  width: 100%;
+  padding: 7px 10px;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  font-size: 0.9rem;
+  font-family: monospace;
+  transition: border-color 0.15s;
+}
+.config-row input:focus { outline: none; border-color: var(--primary); }
+.config-row input.invalid { border-color: var(--danger); background: #fff5f5; }
+.config-row input.valid   { border-color: var(--success); }
+.field-hint {
+  font-size: 0.75rem;
+  color: var(--danger);
+  margin-top: 2px;
+  display: none;
+}
+.field-hint.visible { display: block; }
+
+/* Router interfaces */
+.interface-row {
+  display: grid;
+  grid-template-columns: 70px 1fr 1fr auto;
+  gap: 6px;
+  align-items: center;
+  margin-bottom: 6px;
+  font-size: 0.82rem;
+}
+.interface-row .iface-name { font-family: monospace; font-weight: 600; font-size: 0.8rem; }
+.interface-row input {
+  padding: 5px 7px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 0.82rem;
+}
+.interface-row input.invalid { border-color: var(--danger); background: #fff5f5; }
+.btn-remove-iface {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  cursor: pointer;
+  color: var(--danger);
+  padding: 3px 6px;
+  font-size: 0.8rem;
+}
+
+/* Config panel buttons */
+.config-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 14px;
+  flex-wrap: wrap;
+}
+.btn-primary {
+  padding: 7px 14px;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.88rem;
+}
+.btn-primary:hover { background: var(--primary-dark); }
+.btn-secondary {
+  padding: 7px 14px;
+  background: var(--white);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.88rem;
+}
+.btn-secondary:hover { background: var(--bg); }
+.btn-danger {
+  padding: 7px 14px;
+  background: var(--white);
+  color: var(--danger);
+  border: 1px solid var(--danger);
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.88rem;
+  margin-left: auto;
+}
+.btn-danger:hover { background: #ffebee; }
+
+/* Ping results */
+#ping-results {
+  margin-top: 12px;
+  display: none;
+}
+#ping-results h3 { font-size: 0.95rem; margin-bottom: 8px; color: var(--text); }
+.ping-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+.ping-table th, .ping-table td {
+  border: 1px solid var(--border);
+  padding: 6px 10px;
+  text-align: left;
+}
+.ping-table th { background: var(--bg); font-weight: 600; }
+.ping-ok   { color: var(--success); font-weight: 600; }
+.ping-fail { color: var(--danger); }
+.ping-icon { margin-right: 4px; }
+
+/* === ASSIGNMENT SECTION (LEVER OPPGAVE) === */
+.assignment-intro {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  margin-bottom: 14px;
+  box-shadow: var(--shadow);
+}
+.assignment-intro h2 { color: var(--primary-dark); margin-bottom: 8px; font-size: 1rem; }
+.assignment-intro ul { padding-left: 18px; line-height: 1.8; font-size: 0.9rem; }
+.assignment-intro code {
+  background: var(--bg);
+  padding: 1px 5px;
+  border-radius: 3px;
+  font-family: monospace;
+  font-size: 0.88em;
+  color: var(--primary-dark);
+}
+
+#validation-status {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  margin-bottom: 14px;
+  box-shadow: var(--shadow);
+}
+#validation-status h3 { margin-bottom: 10px; font-size: 0.95rem; color: var(--text-muted); }
+.check-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 6px 0;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+.check-item:last-child { border-bottom: none; }
+.check-icon {
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.check-icon.pass { background: var(--success); }
+.check-icon.fail { background: #bbb; }
+
+.submit-section {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  box-shadow: var(--shadow);
+}
+.submit-section label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+.submit-section input[type="text"] {
+  width: 100%;
+  padding: 9px 12px;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  font-size: 0.95rem;
+  margin-bottom: 12px;
+}
+.submit-section input[type="text"]:focus { outline: none; border-color: var(--primary); }
+#submit-btn {
+  width: 100%;
+  padding: 12px;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: var(--radius);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, opacity 0.15s;
+}
+#submit-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  background: #aaa;
+}
+#submit-btn:not(:disabled):hover { background: var(--primary-dark); }
+
+/* === TEACHER PAGE === */
+#teacher-page {
+  display: none;
+  padding: 20px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+#teacher-page h1 { color: var(--primary-dark); margin-bottom: 4px; }
+#teacher-page .teacher-subtitle { color: var(--text-muted); margin-bottom: 20px; font-size: 0.9rem; }
+.upload-box {
+  background: var(--white);
+  border: 2px dashed var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  text-align: center;
+  margin-bottom: 20px;
+  cursor: pointer;
+  transition: border-color 0.15s;
+}
+.upload-box:hover { border-color: var(--primary); }
+.upload-box input { display: none; }
+.upload-box label { cursor: pointer; color: var(--primary-dark); font-weight: 600; }
+.upload-box p { color: var(--text-muted); font-size: 0.85rem; margin-top: 4px; }
+
+#teacher-results { display: none; }
+.verdict-banner {
+  padding: 14px 20px;
+  border-radius: var(--radius);
+  font-size: 1.2rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 16px;
+  letter-spacing: 0.5px;
+}
+.verdict-pass { background: #e8f5e9; color: var(--success); border: 2px solid var(--success); }
+.verdict-fail { background: #ffebee; color: var(--danger); border: 2px solid var(--danger); }
+
+.teacher-section {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  margin-bottom: 16px;
+  box-shadow: var(--shadow);
+}
+.teacher-section h2 { color: var(--primary-dark); font-size: 1rem; margin-bottom: 12px; }
+.teacher-meta-table { width: 100%; font-size: 0.9rem; border-collapse: collapse; }
+.teacher-meta-table td { padding: 6px 10px; border-bottom: 1px solid #f0f0f0; }
+.teacher-meta-table td:first-child { font-weight: 600; color: var(--text-muted); width: 140px; }
+.teacher-meta-table tr:last-child td { border-bottom: none; }
+
+.ip-config-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+.ip-config-table th, .ip-config-table td {
+  border: 1px solid var(--border);
+  padding: 7px 10px;
+  text-align: left;
+}
+.ip-config-table th { background: var(--primary-light); color: var(--primary-dark); font-weight: 600; }
+.ip-config-table td { font-family: monospace; }
+.ip-config-table td:first-child, .ip-config-table td:nth-child(2) { font-family: inherit; }
+
+/* Read-only topology canvas (teacher) */
+#teacher-topology-wrapper {
+  position: relative;
+  width: 100%;
+  height: 420px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: #fafffe;
+  overflow: hidden;
+}
+#teacher-canvas { position: absolute; inset: 0; }
+#teacher-svg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+
+/* === TOAST === */
+#toast {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: #333;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-size: 0.88rem;
+  opacity: 0;
+  transition: opacity 0.2s, transform 0.2s;
+  pointer-events: none;
+  z-index: 1000;
+  max-width: 90vw;
+  text-align: center;
+}
+#toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* === MOBILE === */
+@media (max-width: 600px) {
+  #app-header h1 { font-size: 0.95rem; }
+  .tab-btn { font-size: 0.78rem; padding: 8px 4px; }
+  #canvas-wrapper { height: 340px; }
+  .interface-row { grid-template-columns: 60px 1fr 1fr auto; font-size: 0.78rem; }
+  .bit-table { font-size: 0.62rem; }
+  .ip-octet { padding: 6px 8px; font-size: 0.95rem; }
+}
+@media (max-width: 400px) {
+  .tab-btn { font-size: 0.7rem; padding: 7px 2px; }
+}
